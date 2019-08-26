@@ -1,5 +1,5 @@
 ###########
-Thank you for the share of ncnn, refer to https://github.com/Tencent/ncnn
+Thanks for the share of ncnn, refer to https://github.com/Tencent/ncnn
 ###########
 
 This repository is mainly for the converting from tensorflow to ncnn directly based on the NCNN for Tensorflow https://github.com/jiangxiluning/ncnn-tensorflow.
@@ -20,9 +20,9 @@ How to build new layer for ncnn, please check:
 https://github.com/Tencent/ncnn/wiki/how-to-implement-custom-layer-step-by-step
 
 
-For now, since the problem caused by original bactchnorm in ncnn-tensorflow has been solved. 
+For now, the problem caused by original bactchnorm in ncnn-tensorflow has been solved. 
 
-And layer "Shape", "StridedSlice", "Pack", "ResizeBilinear", "LeakyRelu", "Relu6", "Range", "Tile", "Case" has been added or updated for tensorflow. 
+And layer "Shape", "StridedSlice", "Pack", "ResizeBilinear", "LeakyRelu", "Relu6", "Range", "Tile", "Reshape", "Cast" has been added or updated for tensorflow. 
 
 I have test the normal CNN with FC,  tf.flatten NOT support yet because the weight file cannot be aligned correctly, but you can use reshape op with the caculated shape like tf.reshape(max_pool, [-1, 64]).
 
