@@ -18,3 +18,12 @@ you can check the related files in ./src/layer, the new layers are started with 
 
 How to build new layer for ncnn, please check:
 https://github.com/Tencent/ncnn/wiki/how-to-implement-custom-layer-step-by-step
+
+
+For now, since the problem caused by original bactchnorm in ncnn-tensorflow has been solved. 
+
+And layer "Shape", "StridedSlice", "Pack", "ResizeBilinear", "LeakyRelu", "Relu6", "Range", "Tile", "Case" has been added or updated for tensorflow. 
+
+I have test the normal CNN with FC,  tf.flatten NOT support yet because the weight file cannot be aligned correctly, but you can use reshape op with the caculated shape like tf.reshape(max_pool, [-1, 64]).
+
+And the yolov3 based on mobilenetv2 also can output successfully based on the related files in projects. Once the results of output are checked correctly, the details will be updated.
