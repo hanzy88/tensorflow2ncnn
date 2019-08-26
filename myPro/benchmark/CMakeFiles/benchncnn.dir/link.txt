@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -DNDEBUG   CMakeFiles/benchncnn.dir/benchncnn.cpp.o  -o benchncnn ../src/libncnn.a /usr/lib/gcc/x86_64-linux-gnu/5/libgomp.so -lpthread 

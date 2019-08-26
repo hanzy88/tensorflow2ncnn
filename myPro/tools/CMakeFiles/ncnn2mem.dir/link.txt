@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -DNDEBUG   CMakeFiles/ncnn2mem.dir/ncnn2mem.cpp.o  -o ncnn2mem ../src/libncnn.a /usr/lib/gcc/x86_64-linux-gnu/5/libgomp.so -lpthread 

@@ -1,0 +1,13 @@
+# Hashes of file build rules.
+5039b88bbd09c417c57b6d7e47c49e90 tools/caffe/caffe.pb.cc
+4751441cbb14d3157cfb382e10749441 tools/onnx/onnx.pb.cc
+b031a45f041244d7fb8ad209fea1ba4c tools/tensorflow/attr_value.pb.cc
+6e847e06db82a27a6cdbcb324c7d2491 tools/tensorflow/function.pb.cc
+cb350d0fdf500ee50a49aeb77418b74f tools/tensorflow/graph.pb.cc
+d20216849335a972fd92e3826db4dc8e tools/tensorflow/node_def.pb.cc
+f3b20cadb610dab44cb3ecf2fcf21e7d tools/tensorflow/op_def.pb.cc
+51fd7d16d2487450cb60ca490dd106e6 tools/tensorflow/resource_handle.pb.cc
+33067a52605f43177c7860cf67fc0a4a tools/tensorflow/tensor.pb.cc
+c4a6a96e5511cbd924461da3f2dbe78c tools/tensorflow/tensor_shape.pb.cc
+dab2849e89df2039522b26930c92bedd tools/tensorflow/types.pb.cc
+4e971342f90e92edb4dd75da5c639e50 tools/tensorflow/versions.pb.cc

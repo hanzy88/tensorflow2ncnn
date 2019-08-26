@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -DNDEBUG   CMakeFiles/caffe2ncnn.dir/caffe2ncnn.cpp.o CMakeFiles/caffe2ncnn.dir/caffe.pb.cc.o  -o caffe2ncnn -Wl,-rpath,/home/zyhan/anaconda3/lib /home/zyhan/anaconda3/lib/libprotobuf.so 
