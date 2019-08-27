@@ -10,14 +10,17 @@ Since the related cmakefiles have changed to rebuilt on my machine, you can foll
 
 And for the convert for tensorflow:
 
-please check the related files in ./tools/tensorflow/, tensorflow2ncnn.cpp can convert the pb file to the ncnn.param and ncnn.bin
+please check the related files in tools/tensorflow/, tensorflow2ncnn.cpp can convert the pb file to the ncnn.param and ncnn.bin
 
 And for the new layers built for tensorflow:
 
-you can check the related files in ./src/layer, the new layers are started with tf* (forgive for my poor coding in the layer, it will be updated in the future).
+you can check the related files in src/layer, the new layers are started with tf* (forgive for my poor coding in the layer, it will be updated in the future).
 
 How to build new layer for ncnn, please check:
+
 https://github.com/Tencent/ncnn/wiki/how-to-implement-custom-layer-step-by-step
+
+Once the new layer are added, add the layer to make in src/CMakefiles, like: ncnn_add_layer(TFReshape). and then rebuild the project.
 
 
 For now, the problem caused by original bactchnorm in ncnn-tensorflow has been solved. 
