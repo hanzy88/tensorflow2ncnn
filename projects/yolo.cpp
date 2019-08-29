@@ -95,22 +95,6 @@ static int detect_yolov3(const cv::Mat& bgr, std::vector<Object>& objects)
     all_out.push_back(out3);
     ncnn::Mat out;
     yolo.detection(all_out, out);
-    //out = out.reshape(out.w, out.h, 3, -1);
-    fprintf(stderr, "width: %d\n", out.w);
-    fprintf(stderr, "height: %d\n", out.h);
-    fprintf(stderr, "depth: %d\n", out.c);
-
-    
-    
-    std::ofstream write;
-    write.open("text.txt");
-    
-    for(int i = 0;i < out1.c * out1.h * out1.c;i++){
-        //fprintf(stderr, "out: %f\n",  out[i]);
-        write << out1[i] << std::endl;
-    }
-    write.close();
-    
     
     objects.clear();
     for (int i=0; i<out.h; i++)
