@@ -15,6 +15,7 @@
 #ifndef YOLODECTION_H
 #define YOLODECTION_H
 
+#include <fstream>
 #include <math.h>
 #include <vector>
 #include <algorithm>
@@ -176,9 +177,11 @@ inline int yoloDection::detection(const std::vector<ncnn::Mat>& bottom_blobs, nc
     std::vector<BBoxRect> all_bbox_rects;
     std::vector<float> all_bbox_scores;
 
+    std::ofstream fwrite;
+    //fwrite.open("detection.txt");
+
     for (size_t b = 0; b < bottom_blobs.size(); b++)
     {
-        fprintf(stderr, "biases: %f\n", biases[b]);
         std::vector< std::vector<BBoxRect> > all_box_bbox_rects;
         std::vector< std::vector<float> > all_box_bbox_scores;
         all_box_bbox_rects.resize(num_box);
@@ -200,12 +203,14 @@ inline int yoloDection::detection(const std::vector<ncnn::Mat>& bottom_blobs, nc
         //printf("%d %d\n", net_w, net_h);
 
         //printf("%d %d %d\n", w, h, channels);
-//#pragma omp parallel for num_threads(4)
+        #pragma omp parallel for num_threads(4)
+        
         for (int pp = 0; pp < num_box; pp++)
         {
+            //fwrite << pp << ":" << std::endl;
             int p = pp * channels_per_box;
             int biases_index = mask[pp + mask_offset];
-            //printf("%d\n", biases_index);
+            //printf("%d\n", p);
             const float bias_w = biases[biases_index * 2];
             const float bias_h = biases[biases_index * 2 + 1];
             //printf("%f %f\n", bias_w, bias_h);
@@ -214,18 +219,18 @@ inline int yoloDection::detection(const std::vector<ncnn::Mat>& bottom_blobs, nc
             const float* wptr = bottom_top_blobs.channel(p + 2);
             const float* hptr = bottom_top_blobs.channel(p + 3);
 
+            //fprintf(stderr, "%f %f %f %f\n", * xptr, * yptr, * wptr, * hptr);
             const float* box_score_ptr = bottom_top_blobs.channel(p + 4);
 
             // softmax class scores
+            
             ncnn::Mat scores = bottom_top_blobs.channel_range(p + 5, num_class);
             //softmax->forward_inplace(scores, opt);
-
+            
             for (int i = 0; i < h; i++)
             {
                 for (int j = 0; j < w; j++)
                 {
-
-
                     // box score
                     float box_score = sigmoid(box_score_ptr[0]);
 
@@ -234,7 +239,9 @@ inline int yoloDection::detection(const std::vector<ncnn::Mat>& bottom_blobs, nc
                     float class_score = 0.f;
                     for (int q = 0; q < num_class; q++)
                     {
+
                         float score = sigmoid(scores.channel(q).row(i)[j]);
+                        fwrite << score << " ";
                         if (score > class_score)
                         {
                             class_index = q;
@@ -242,16 +249,15 @@ inline int yoloDection::detection(const std::vector<ncnn::Mat>& bottom_blobs, nc
                         }
                     }
 
+                    
                     //printf( "%d %f %f\n", class_index, box_score, class_score);
-
+                    
                     float confidence = box_score * class_score;
-                    if (confidence >= confidence_threshold)
+                    if (confidence > confidence_threshold)
                     {
                                             // region box
                         float bbox_cx = (j + sigmoid(xptr[0])) / w;
                         float bbox_cy = (i + sigmoid(yptr[0])) / h;
-                        //float bbox_w = exp(wptr[0]) / net_w;
-                        //float bbox_h = exp(hptr[0]) / net_h;
                         float bbox_w = exp(wptr[0]) * bias_w / net_w;
                         float bbox_h = exp(hptr[0]) * bias_h / net_h;
 
@@ -259,22 +265,27 @@ inline int yoloDection::detection(const std::vector<ncnn::Mat>& bottom_blobs, nc
                         float bbox_ymin = bbox_cy - bbox_h * 0.5f;
                         float bbox_xmax = bbox_cx + bbox_w * 0.5f;
                         float bbox_ymax = bbox_cy + bbox_h * 0.5f;
-                        
+                        //float bbox_xmin = bbox_cx - bbox_w * 0.5f >= 0.f ? bbox_cx - bbox_w * 0.5f : 0.f;
+                        //float bbox_ymin = bbox_cy - bbox_h * 0.5f >= 0.f ? bbox_cy - bbox_h * 0.5f : 0.f;
+                        //float bbox_xmax = bbox_cx + bbox_w * 0.5f <= (float)net_w ? bbox_cx + bbox_w * 0.5f : (float)net_w;
+                        //float bbox_ymax = bbox_cy + bbox_h * 0.5f <= (float)net_h ? bbox_cy + bbox_h * 0.5f : (float)net_h;
+                        //fprintf(stderr, "%f %f %f %f\n", bbox_xmin, bbox_ymin, bbox_xmax,bbox_ymax);
                         BBoxRect c = { bbox_xmin, bbox_ymin, bbox_xmax, bbox_ymax, class_index };
                         all_box_bbox_rects[pp].push_back(c);
                         all_box_bbox_scores[pp].push_back(confidence);
                     }
-
+                    
                     xptr++;
                     yptr++;
                     wptr++;
                     hptr++;
 
                     box_score_ptr++;
+
+                    //fwrite << std::endl << std::endl;
                 }
             }
         }
-
 
 
         for (int i = 0; i < num_box; i++)
@@ -285,9 +296,8 @@ inline int yoloDection::detection(const std::vector<ncnn::Mat>& bottom_blobs, nc
             all_bbox_rects.insert(all_bbox_rects.end(), box_bbox_rects.begin(), box_bbox_rects.end());
             all_bbox_scores.insert(all_bbox_scores.end(), box_bbox_scores.begin(), box_bbox_scores.end());
         }
-
     }
-    
+    //fwrite.close();
 
     // global sort inplace
     qsort_descent_inplace(all_bbox_rects, all_bbox_scores);
@@ -322,12 +332,13 @@ inline int yoloDection::detection(const std::vector<ncnn::Mat>& bottom_blobs, nc
         float score = bbox_scores[i];
         float* outptr = top_blob.row(i);
 
-        outptr[0] = r.label + 1;// +1 for prepend background class
+        outptr[0] = r.label;// +1 for prepend background class
         outptr[1] = score;
         outptr[2] = r.xmin;
         outptr[3] = r.ymin;
         outptr[4] = r.xmax;
         outptr[5] = r.ymax;
+        //fprintf(stderr, "%f %f\n", outptr[2], outptr[3]);
     }
 
     return 0;

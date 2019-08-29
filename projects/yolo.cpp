@@ -55,6 +55,8 @@ static int detect_yolov3(const cv::Mat& bgr, std::vector<Object>& objects)
 
     ncnn::Mat in = ncnn::Mat::from_pixels_resize(bgr.data, ncnn::Mat::PIXEL_BGR, bgr.cols, bgr.rows, target_size, target_size);
 
+    const float norm_vals[3] = {1/255.0, 1/255.0, 1/255.0};
+    in.substract_mean_normalize(0, norm_vals);
     //const float mean_vals[3] = {127.5f, 127.5f, 127.5f};
     //const float norm_vals[3] = {0.007843f, 0.007843f, 0.007843f};
     //in.substract_mean_normalize(mean_vals, norm_vals);
@@ -63,13 +65,13 @@ static int detect_yolov3(const cv::Mat& bgr, std::vector<Object>& objects)
     ex.set_num_threads(4);
     int num_class = 80;
     int num_box = 3;
-    float confidence_threshold=0.01;
-    float nms_threshold = 0.45;
+    float confidence_threshold=0.3;
+    float nms_threshold = 0.6;
     int mask_group_num = 3;
 
     float bias[18] = {10,13,16,30,33,23,30,61,62,45,59,119,116,90,156,198,373,326};
     float msk[9] = {6,7,8,3,4,5,0,1,2};
-    float anchors[3] = {32, 16,16};
+    float anchors[3] = {32, 16, 8};
 
     ncnn::Mat biases(18, sizeof(bias), bias);
     ncnn::Mat mask(9, sizeof(msk), msk);
@@ -86,17 +88,7 @@ static int detect_yolov3(const cv::Mat& bgr, std::vector<Object>& objects)
     ex.extract("yolo_head2/cnn/add", out2);
     ncnn::Mat out3;
     ex.extract("yolo_head3/cnn/add", out3);
-    /*
-    fprintf(stderr, "width: %d\n", out1.w);
-    fprintf(stderr, "height: %d\n", out1.h);
-    fprintf(stderr, "depth: %d\n", out1.c);
-    fprintf(stderr, "width: %d\n", out2.w);
-    fprintf(stderr, "height: %d\n", out2.h);
-    fprintf(stderr, "depth: %d\n", out2.c);
-    fprintf(stderr, "width: %d\n", out3.w);
-    fprintf(stderr, "height: %d\n", out3.h);
-    fprintf(stderr, "depth: %d\n", out3.c);
-    */
+    
     std::vector<ncnn::Mat> all_out;
     all_out.push_back(out1);
     all_out.push_back(out2);
@@ -108,20 +100,17 @@ static int detect_yolov3(const cv::Mat& bgr, std::vector<Object>& objects)
     fprintf(stderr, "height: %d\n", out.h);
     fprintf(stderr, "depth: %d\n", out.c);
 
-    /*
-    fprintf(stderr, "%f\n", out);
+    
     
     std::ofstream write;
     write.open("text.txt");
     
-    for(int i = 0;i < out.c * out.h * out.c;i++){
+    for(int i = 0;i < out1.c * out1.h * out1.c;i++){
         //fprintf(stderr, "out: %f\n",  out[i]);
-        write << out[i] << std::endl;
+        write << out1[i] << std::endl;
     }
     write.close();
-    */
-//     printf("%d %d %d\n", out.w, out.h, out.c);
-
+    
     
     objects.clear();
     for (int i=0; i<out.h; i++)
@@ -136,6 +125,8 @@ static int detect_yolov3(const cv::Mat& bgr, std::vector<Object>& objects)
         object.rect.width = values[4] * img_w - object.rect.x;
         object.rect.height = values[5] * img_h - object.rect.y;
 
+        //fprintf(stderr, "object: %f %f %f %f\n", object.rect.x, object.rect.y, object.rect.width,object.rect.height);
+
         objects.push_back(object);
     }
     
@@ -144,12 +135,27 @@ static int detect_yolov3(const cv::Mat& bgr, std::vector<Object>& objects)
 
 static void draw_objects(const cv::Mat& bgr, const std::vector<Object>& objects)
 {
+    // coco
+    static const char* class_names[] = {"person","bicycle","car","motorbike","aeroplane",
+        "bus","train","truck","boat","traffic light","fire hydrant","stop sign","parking meter",
+        "bench","bird","cat","dog","horse","sheep","cow","elephant","bear","zebra","giraffe",
+        "backpack","umbrella","handbag","tie","suitcase","frisbee","skis","snowboard","sports ball",
+        "kite","baseball bat","baseball glove","skateboard","surfboard","tennis racket","bottle",
+        "wine glass","cup","fork","knife","spoon","bowl","banana","apple","sandwich","orange",
+        "broccoli","carrot","hot dog","pizza","donut","cake","chair","sofa","pottedplant","bed",
+        "diningtable","toilet","tvmonitor","laptop","mouse","remote","keyboard","cell phone",
+        "microwave","oven","toaster","sink","refrigerator","book","clock","vase","scissors",
+        "teddy bear","hair drier","toothbrush"};
+
+    //voc
+    /* 
     static const char* class_names[] = {"background",
         "aeroplane", "bicycle", "bird", "boat",
         "bottle", "bus", "car", "cat", "chair",
         "cow", "diningtable", "dog", "horse",
         "motorbike", "person", "pottedplant",
         "sheep", "sofa", "train", "tvmonitor"};
+    */
 
     cv::Mat image = bgr.clone();
 
