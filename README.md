@@ -1,6 +1,6 @@
 Update:
 ======
-The yolov3 based on full cnn/ mobilenetv2 are checked successfully by tensorflow2ncnn. Since the model was only trained with 16 epoches, the result was not so good, as shown in follow:
+The yolov3 based on full cnn/ mobilenetv2 are checked successfully by tensorflow2ncnn. Since the model was only trained with 16 epoches AND accuracy loss after conversion, the result was not so good, as shown in follow:
 
 ![Image text](https://github.com/hanzy88/tensorflow2ncnn/blob/master/images/2eff677a1588b8bcf8382183192b44c.png)
 
