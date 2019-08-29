@@ -11,7 +11,6 @@ code: 3hkh
 
 = =
 If it's helpful for you, please give a star. 
--------------------------------------------
 And if you are interested in tf2ncnn, welcome to improve it together to make tf2ncnn better.
 
 Tensorflow2ncnn
