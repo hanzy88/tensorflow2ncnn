@@ -17,30 +17,33 @@ And if you are interested in tf2ncnn, welcome to improve it together to make tf2
 
 # Tensorflow2ncnn
 
-###########
 Thanks for the share of ncnn, refer to https://github.com/Tencent/ncnn
-###########
+----------------------------------------------------------------------
 
 This repository is mainly for the converting from tensorflow to ncnn directly based on the NCNN for Tensorflow https://github.com/jiangxiluning/ncnn-tensorflow.
 
-First build the ncnn:
+## First, build the ncnn:
 
 Since the related cmakefiles have changed to rebuilt on my machine, you can follow the steps in ncnn to build the ncnn.
 
-And for the convert for tensorflow:
+## Second, convert from tensorflow to ncnn:
 
-please check the related files in tools/tensorflow/, tensorflow2ncnn.cpp can convert the pb file to the ncnn.param and ncnn.bin
+please check the related files in tools/tensorflow/, tensorflow2ncnn.cpp can convert the pb file to the ncnn.param and ncnn.bin. Once the tools are built, the converter can be found in myPro(i.e., the biuld files)/tools/.. For detail of the convert, you can follow the step by:
 
-And for the new layers built for tensorflow:
+https://github.com/hanzy88/ckpt2pb
+
+For the new layers built in tensorflow2ncnn corresponding to the layers in ncnn:
 
 you can check the related files in src/layer, the new layers are started with tf* (forgive for my poor coding in the layer, it will be updated in the future).
 
-How to build new layer for ncnn, please check:
+If you want to build new op for tf2ncnn i.e., How to build new layer for ncnn, please check:
 
 https://github.com/Tencent/ncnn/wiki/how-to-implement-custom-layer-step-by-step
 
 Once the new layer are added, add the layer to make in src/CMakefiles, like: ncnn_add_layer(TFReshape). and then rebuild the project.
 
+
+## Third, Suppot OP
 
 For now, the problem caused by original bactchnorm in ncnn-tensorflow has been solved. 
 
