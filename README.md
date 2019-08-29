@@ -1,3 +1,19 @@
+Update:
+======
+The yolov2 based on full cnn/ mobilenetv2 are checked successfully by tensorflow2ncnn. Since the model was only trained with 16 epoches, the result was not so good, as shown in follow:
+
+![Image text](https://github.com/hanzy88/tensorflow2ncnn/blob/master/images/2eff677a1588b8bcf8382183192b44c.png)
+
+Since the related flies are too big, you can download by baiduyun:
+
+https://pan.baidu.com/s/1mQdPuTeiRw2iimcyxU0WYw 
+code: 3hkh 
+
+= =
+If it's helpful for you, please give a star. 
+= =
+And if you are interested in tf2ncnn, welcome to improve it together to make tf2ncnn better.
+
 ###########
 Thanks for the share of ncnn, refer to https://github.com/Tencent/ncnn
 ###########
@@ -27,6 +43,5 @@ For now, the problem caused by original bactchnorm in ncnn-tensorflow has been s
 
 And layer "Shape", "StridedSlice", "Pack", "ResizeBilinear", "LeakyRelu", "Relu6", "Range", "Tile", "Reshape", "Cast" has been added or updated for tensorflow. 
 
-I have test the normal CNN with FC,  tf.flatten NOT support yet because the weight file cannot be aligned correctly, but you can use reshape op with the caculated shape like tf.reshape(max_pool, [-1, 64]).
+The normal CNN with FC has tested,  tf.flatten NOT support yet because the weight file cannot be aligned correctly, but you can use reshape op with the caculated shape like tf.reshape(max_pool, [-1, 64]).
 
-And the yolov3 based on mobilenetv2 also can output successfully based on the related files in projects. Once the results of output are checked correctly, the details will be updated.
