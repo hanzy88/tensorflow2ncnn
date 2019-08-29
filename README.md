@@ -43,7 +43,7 @@ https://github.com/Tencent/ncnn/wiki/how-to-implement-custom-layer-step-by-step
 Once the new layer are added, add the layer to make in src/CMakefiles, like: ncnn_add_layer(TFReshape). and then rebuild the project.
 
 
-## Third, Suppot OP
+## Third, Support OP
 
 For now, the problem caused by original bactchnorm in ncnn-tensorflow has been solved. 
 
