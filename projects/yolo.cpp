@@ -82,12 +82,12 @@ static int detect_yolov3(const cv::Mat& bgr, std::vector<Object>& objects)
 
     ex.input("input_x", in);
 
-    ncnn::Mat out1;
-    ex.extract("yolo_head1/cnn/add", out1);
-    ncnn::Mat out2;
-    ex.extract("yolo_head2/cnn/add", out2);
     ncnn::Mat out3;
     ex.extract("yolo_head3/cnn/add", out3);
+    ncnn::Mat out2;
+    ex.extract("yolo_head2/cnn/add", out2);
+    ncnn::Mat out1;
+    ex.extract("yolo_head1/cnn/add", out1);
     
     std::vector<ncnn::Mat> all_out;
     all_out.push_back(out1);
