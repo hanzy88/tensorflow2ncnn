@@ -1,0 +1,287 @@
+7767517
+285 312
+Input            input_x                          0 1 input_x 0=0 1=0 2=0
+Convolution      cnn/Conv2D                       1 1 input_x cnn/Conv2D 0=32 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=864
+BatchNorm        cnn/batch_normalization/FusedBatchNorm 1 1 cnn/Conv2D cnn/batch_normalization/FusedBatchNorm 0=32 1=0.001000
+ReLU             cnn/LeakyRelu                    1 1 cnn/batch_normalization/FusedBatchNorm cnn/LeakyRelu 0=0.100000
+Padding          cnn_1/Pad                        1 1 cnn/LeakyRelu cnn_1/Pad 0=1 1=0 2=1 3=0 4=0 5=0.000000
+Convolution      cnn_1/Conv2D                     1 1 cnn_1/Pad cnn_1/Conv2D 0=64 1=3 11=3 2=1 12=1 3=2 13=2 4=0 5=0 6=18432
+BatchNorm        cnn_1/batch_normalization/FusedBatchNorm 1 1 cnn_1/Conv2D cnn_1/batch_normalization/FusedBatchNorm 0=64 1=0.001000
+ReLU             cnn_1/LeakyRelu                  1 1 cnn_1/batch_normalization/FusedBatchNorm cnn_1/LeakyRelu 0=0.100000
+Split            splitncnn_0                      1 2 cnn_1/LeakyRelu cnn_1/LeakyRelu_splitncnn_0 cnn_1/LeakyRelu_splitncnn_1
+Convolution      cnn_2/Conv2D                     1 1 cnn_1/LeakyRelu_splitncnn_1 cnn_2/Conv2D 0=32 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=2048
+BatchNorm        cnn_2/batch_normalization/FusedBatchNorm 1 1 cnn_2/Conv2D cnn_2/batch_normalization/FusedBatchNorm 0=32 1=0.001000
+ReLU             cnn_2/LeakyRelu                  1 1 cnn_2/batch_normalization/FusedBatchNorm cnn_2/LeakyRelu 0=0.100000
+Convolution      cnn_3/Conv2D                     1 1 cnn_2/LeakyRelu cnn_3/Conv2D 0=64 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=18432
+BatchNorm        cnn_3/batch_normalization/FusedBatchNorm 1 1 cnn_3/Conv2D cnn_3/batch_normalization/FusedBatchNorm 0=64 1=0.001000
+ReLU             cnn_3/LeakyRelu                  1 1 cnn_3/batch_normalization/FusedBatchNorm cnn_3/LeakyRelu 0=0.100000
+BinaryOp         add                              2 1 cnn_3/LeakyRelu cnn_1/LeakyRelu_splitncnn_0 add 0=0
+Padding          cnn_4/Pad                        1 1 add cnn_4/Pad 0=1 1=0 2=1 3=0 4=0 5=0.000000
+Convolution      cnn_4/Conv2D                     1 1 cnn_4/Pad cnn_4/Conv2D 0=128 1=3 11=3 2=1 12=1 3=2 13=2 4=0 5=0 6=73728
+BatchNorm        cnn_4/batch_normalization/FusedBatchNorm 1 1 cnn_4/Conv2D cnn_4/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_4/LeakyRelu                  1 1 cnn_4/batch_normalization/FusedBatchNorm cnn_4/LeakyRelu 0=0.100000
+Split            splitncnn_1                      1 2 cnn_4/LeakyRelu cnn_4/LeakyRelu_splitncnn_0 cnn_4/LeakyRelu_splitncnn_1
+Convolution      cnn_5/Conv2D                     1 1 cnn_4/LeakyRelu_splitncnn_1 cnn_5/Conv2D 0=64 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=8192
+BatchNorm        cnn_5/batch_normalization/FusedBatchNorm 1 1 cnn_5/Conv2D cnn_5/batch_normalization/FusedBatchNorm 0=64 1=0.001000
+ReLU             cnn_5/LeakyRelu                  1 1 cnn_5/batch_normalization/FusedBatchNorm cnn_5/LeakyRelu 0=0.100000
+Convolution      cnn_6/Conv2D                     1 1 cnn_5/LeakyRelu cnn_6/Conv2D 0=128 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=73728
+BatchNorm        cnn_6/batch_normalization/FusedBatchNorm 1 1 cnn_6/Conv2D cnn_6/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_6/LeakyRelu                  1 1 cnn_6/batch_normalization/FusedBatchNorm cnn_6/LeakyRelu 0=0.100000
+BinaryOp         add_1                            2 1 cnn_6/LeakyRelu cnn_4/LeakyRelu_splitncnn_0 add_1 0=0
+Split            splitncnn_2                      1 2 add_1 add_1_splitncnn_0 add_1_splitncnn_1
+Convolution      cnn_7/Conv2D                     1 1 add_1_splitncnn_1 cnn_7/Conv2D 0=64 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=8192
+BatchNorm        cnn_7/batch_normalization/FusedBatchNorm 1 1 cnn_7/Conv2D cnn_7/batch_normalization/FusedBatchNorm 0=64 1=0.001000
+ReLU             cnn_7/LeakyRelu                  1 1 cnn_7/batch_normalization/FusedBatchNorm cnn_7/LeakyRelu 0=0.100000
+Convolution      cnn_8/Conv2D                     1 1 cnn_7/LeakyRelu cnn_8/Conv2D 0=128 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=73728
+BatchNorm        cnn_8/batch_normalization/FusedBatchNorm 1 1 cnn_8/Conv2D cnn_8/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_8/LeakyRelu                  1 1 cnn_8/batch_normalization/FusedBatchNorm cnn_8/LeakyRelu 0=0.100000
+BinaryOp         add_2                            2 1 cnn_8/LeakyRelu add_1_splitncnn_0 add_2 0=0
+Padding          cnn_9/Pad                        1 1 add_2 cnn_9/Pad 0=1 1=0 2=1 3=0 4=0 5=0.000000
+Convolution      cnn_9/Conv2D                     1 1 cnn_9/Pad cnn_9/Conv2D 0=256 1=3 11=3 2=1 12=1 3=2 13=2 4=0 5=0 6=294912
+BatchNorm        cnn_9/batch_normalization/FusedBatchNorm 1 1 cnn_9/Conv2D cnn_9/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_9/LeakyRelu                  1 1 cnn_9/batch_normalization/FusedBatchNorm cnn_9/LeakyRelu 0=0.100000
+Split            splitncnn_3                      1 2 cnn_9/LeakyRelu cnn_9/LeakyRelu_splitncnn_0 cnn_9/LeakyRelu_splitncnn_1
+Convolution      cnn_10/Conv2D                    1 1 cnn_9/LeakyRelu_splitncnn_1 cnn_10/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_10/batch_normalization/FusedBatchNorm 1 1 cnn_10/Conv2D cnn_10/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_10/LeakyRelu                 1 1 cnn_10/batch_normalization/FusedBatchNorm cnn_10/LeakyRelu 0=0.100000
+Convolution      cnn_11/Conv2D                    1 1 cnn_10/LeakyRelu cnn_11/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_11/batch_normalization/FusedBatchNorm 1 1 cnn_11/Conv2D cnn_11/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_11/LeakyRelu                 1 1 cnn_11/batch_normalization/FusedBatchNorm cnn_11/LeakyRelu 0=0.100000
+BinaryOp         add_3                            2 1 cnn_11/LeakyRelu cnn_9/LeakyRelu_splitncnn_0 add_3 0=0
+Split            splitncnn_4                      1 2 add_3 add_3_splitncnn_0 add_3_splitncnn_1
+Convolution      cnn_12/Conv2D                    1 1 add_3_splitncnn_1 cnn_12/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_12/batch_normalization/FusedBatchNorm 1 1 cnn_12/Conv2D cnn_12/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_12/LeakyRelu                 1 1 cnn_12/batch_normalization/FusedBatchNorm cnn_12/LeakyRelu 0=0.100000
+Convolution      cnn_13/Conv2D                    1 1 cnn_12/LeakyRelu cnn_13/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_13/batch_normalization/FusedBatchNorm 1 1 cnn_13/Conv2D cnn_13/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_13/LeakyRelu                 1 1 cnn_13/batch_normalization/FusedBatchNorm cnn_13/LeakyRelu 0=0.100000
+BinaryOp         add_4                            2 1 cnn_13/LeakyRelu add_3_splitncnn_0 add_4 0=0
+Split            splitncnn_5                      1 2 add_4 add_4_splitncnn_0 add_4_splitncnn_1
+Convolution      cnn_14/Conv2D                    1 1 add_4_splitncnn_1 cnn_14/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_14/batch_normalization/FusedBatchNorm 1 1 cnn_14/Conv2D cnn_14/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_14/LeakyRelu                 1 1 cnn_14/batch_normalization/FusedBatchNorm cnn_14/LeakyRelu 0=0.100000
+Convolution      cnn_15/Conv2D                    1 1 cnn_14/LeakyRelu cnn_15/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_15/batch_normalization/FusedBatchNorm 1 1 cnn_15/Conv2D cnn_15/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_15/LeakyRelu                 1 1 cnn_15/batch_normalization/FusedBatchNorm cnn_15/LeakyRelu 0=0.100000
+BinaryOp         add_5                            2 1 cnn_15/LeakyRelu add_4_splitncnn_0 add_5 0=0
+Split            splitncnn_6                      1 2 add_5 add_5_splitncnn_0 add_5_splitncnn_1
+Convolution      cnn_16/Conv2D                    1 1 add_5_splitncnn_1 cnn_16/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_16/batch_normalization/FusedBatchNorm 1 1 cnn_16/Conv2D cnn_16/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_16/LeakyRelu                 1 1 cnn_16/batch_normalization/FusedBatchNorm cnn_16/LeakyRelu 0=0.100000
+Convolution      cnn_17/Conv2D                    1 1 cnn_16/LeakyRelu cnn_17/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_17/batch_normalization/FusedBatchNorm 1 1 cnn_17/Conv2D cnn_17/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_17/LeakyRelu                 1 1 cnn_17/batch_normalization/FusedBatchNorm cnn_17/LeakyRelu 0=0.100000
+BinaryOp         add_6                            2 1 cnn_17/LeakyRelu add_5_splitncnn_0 add_6 0=0
+Split            splitncnn_7                      1 2 add_6 add_6_splitncnn_0 add_6_splitncnn_1
+Convolution      cnn_18/Conv2D                    1 1 add_6_splitncnn_1 cnn_18/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_18/batch_normalization/FusedBatchNorm 1 1 cnn_18/Conv2D cnn_18/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_18/LeakyRelu                 1 1 cnn_18/batch_normalization/FusedBatchNorm cnn_18/LeakyRelu 0=0.100000
+Convolution      cnn_19/Conv2D                    1 1 cnn_18/LeakyRelu cnn_19/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_19/batch_normalization/FusedBatchNorm 1 1 cnn_19/Conv2D cnn_19/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_19/LeakyRelu                 1 1 cnn_19/batch_normalization/FusedBatchNorm cnn_19/LeakyRelu 0=0.100000
+BinaryOp         add_7                            2 1 cnn_19/LeakyRelu add_6_splitncnn_0 add_7 0=0
+Split            splitncnn_8                      1 2 add_7 add_7_splitncnn_0 add_7_splitncnn_1
+Convolution      cnn_20/Conv2D                    1 1 add_7_splitncnn_1 cnn_20/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_20/batch_normalization/FusedBatchNorm 1 1 cnn_20/Conv2D cnn_20/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_20/LeakyRelu                 1 1 cnn_20/batch_normalization/FusedBatchNorm cnn_20/LeakyRelu 0=0.100000
+Convolution      cnn_21/Conv2D                    1 1 cnn_20/LeakyRelu cnn_21/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_21/batch_normalization/FusedBatchNorm 1 1 cnn_21/Conv2D cnn_21/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_21/LeakyRelu                 1 1 cnn_21/batch_normalization/FusedBatchNorm cnn_21/LeakyRelu 0=0.100000
+BinaryOp         add_8                            2 1 cnn_21/LeakyRelu add_7_splitncnn_0 add_8 0=0
+Split            splitncnn_9                      1 2 add_8 add_8_splitncnn_0 add_8_splitncnn_1
+Convolution      cnn_22/Conv2D                    1 1 add_8_splitncnn_1 cnn_22/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_22/batch_normalization/FusedBatchNorm 1 1 cnn_22/Conv2D cnn_22/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_22/LeakyRelu                 1 1 cnn_22/batch_normalization/FusedBatchNorm cnn_22/LeakyRelu 0=0.100000
+Convolution      cnn_23/Conv2D                    1 1 cnn_22/LeakyRelu cnn_23/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_23/batch_normalization/FusedBatchNorm 1 1 cnn_23/Conv2D cnn_23/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_23/LeakyRelu                 1 1 cnn_23/batch_normalization/FusedBatchNorm cnn_23/LeakyRelu 0=0.100000
+BinaryOp         add_9                            2 1 cnn_23/LeakyRelu add_8_splitncnn_0 add_9 0=0
+Split            splitncnn_10                     1 2 add_9 add_9_splitncnn_0 add_9_splitncnn_1
+Convolution      cnn_24/Conv2D                    1 1 add_9_splitncnn_1 cnn_24/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_24/batch_normalization/FusedBatchNorm 1 1 cnn_24/Conv2D cnn_24/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_24/LeakyRelu                 1 1 cnn_24/batch_normalization/FusedBatchNorm cnn_24/LeakyRelu 0=0.100000
+Convolution      cnn_25/Conv2D                    1 1 cnn_24/LeakyRelu cnn_25/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_25/batch_normalization/FusedBatchNorm 1 1 cnn_25/Conv2D cnn_25/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_25/LeakyRelu                 1 1 cnn_25/batch_normalization/FusedBatchNorm cnn_25/LeakyRelu 0=0.100000
+BinaryOp         add_10                           2 1 cnn_25/LeakyRelu add_9_splitncnn_0 add_10 0=0
+Split            splitncnn_11                     1 2 add_10 add_10_splitncnn_0 add_10_splitncnn_1
+Padding          cnn_26/Pad                       1 1 add_10_splitncnn_1 cnn_26/Pad 0=1 1=0 2=1 3=0 4=0 5=0.000000
+Convolution      cnn_26/Conv2D                    1 1 cnn_26/Pad cnn_26/Conv2D 0=512 1=3 11=3 2=1 12=1 3=2 13=2 4=0 5=0 6=1179648
+BatchNorm        cnn_26/batch_normalization/FusedBatchNorm 1 1 cnn_26/Conv2D cnn_26/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_26/LeakyRelu                 1 1 cnn_26/batch_normalization/FusedBatchNorm cnn_26/LeakyRelu 0=0.100000
+Split            splitncnn_12                     1 2 cnn_26/LeakyRelu cnn_26/LeakyRelu_splitncnn_0 cnn_26/LeakyRelu_splitncnn_1
+Convolution      cnn_27/Conv2D                    1 1 cnn_26/LeakyRelu_splitncnn_1 cnn_27/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_27/batch_normalization/FusedBatchNorm 1 1 cnn_27/Conv2D cnn_27/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_27/LeakyRelu                 1 1 cnn_27/batch_normalization/FusedBatchNorm cnn_27/LeakyRelu 0=0.100000
+Convolution      cnn_28/Conv2D                    1 1 cnn_27/LeakyRelu cnn_28/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_28/batch_normalization/FusedBatchNorm 1 1 cnn_28/Conv2D cnn_28/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_28/LeakyRelu                 1 1 cnn_28/batch_normalization/FusedBatchNorm cnn_28/LeakyRelu 0=0.100000
+BinaryOp         add_11                           2 1 cnn_28/LeakyRelu cnn_26/LeakyRelu_splitncnn_0 add_11 0=0
+Split            splitncnn_13                     1 2 add_11 add_11_splitncnn_0 add_11_splitncnn_1
+Convolution      cnn_29/Conv2D                    1 1 add_11_splitncnn_1 cnn_29/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_29/batch_normalization/FusedBatchNorm 1 1 cnn_29/Conv2D cnn_29/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_29/LeakyRelu                 1 1 cnn_29/batch_normalization/FusedBatchNorm cnn_29/LeakyRelu 0=0.100000
+Convolution      cnn_30/Conv2D                    1 1 cnn_29/LeakyRelu cnn_30/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_30/batch_normalization/FusedBatchNorm 1 1 cnn_30/Conv2D cnn_30/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_30/LeakyRelu                 1 1 cnn_30/batch_normalization/FusedBatchNorm cnn_30/LeakyRelu 0=0.100000
+BinaryOp         add_12                           2 1 cnn_30/LeakyRelu add_11_splitncnn_0 add_12 0=0
+Split            splitncnn_14                     1 2 add_12 add_12_splitncnn_0 add_12_splitncnn_1
+Convolution      cnn_31/Conv2D                    1 1 add_12_splitncnn_1 cnn_31/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_31/batch_normalization/FusedBatchNorm 1 1 cnn_31/Conv2D cnn_31/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_31/LeakyRelu                 1 1 cnn_31/batch_normalization/FusedBatchNorm cnn_31/LeakyRelu 0=0.100000
+Convolution      cnn_32/Conv2D                    1 1 cnn_31/LeakyRelu cnn_32/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_32/batch_normalization/FusedBatchNorm 1 1 cnn_32/Conv2D cnn_32/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_32/LeakyRelu                 1 1 cnn_32/batch_normalization/FusedBatchNorm cnn_32/LeakyRelu 0=0.100000
+BinaryOp         add_13                           2 1 cnn_32/LeakyRelu add_12_splitncnn_0 add_13 0=0
+Split            splitncnn_15                     1 2 add_13 add_13_splitncnn_0 add_13_splitncnn_1
+Convolution      cnn_33/Conv2D                    1 1 add_13_splitncnn_1 cnn_33/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_33/batch_normalization/FusedBatchNorm 1 1 cnn_33/Conv2D cnn_33/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_33/LeakyRelu                 1 1 cnn_33/batch_normalization/FusedBatchNorm cnn_33/LeakyRelu 0=0.100000
+Convolution      cnn_34/Conv2D                    1 1 cnn_33/LeakyRelu cnn_34/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_34/batch_normalization/FusedBatchNorm 1 1 cnn_34/Conv2D cnn_34/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_34/LeakyRelu                 1 1 cnn_34/batch_normalization/FusedBatchNorm cnn_34/LeakyRelu 0=0.100000
+BinaryOp         add_14                           2 1 cnn_34/LeakyRelu add_13_splitncnn_0 add_14 0=0
+Split            splitncnn_16                     1 2 add_14 add_14_splitncnn_0 add_14_splitncnn_1
+Convolution      cnn_35/Conv2D                    1 1 add_14_splitncnn_1 cnn_35/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_35/batch_normalization/FusedBatchNorm 1 1 cnn_35/Conv2D cnn_35/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_35/LeakyRelu                 1 1 cnn_35/batch_normalization/FusedBatchNorm cnn_35/LeakyRelu 0=0.100000
+Convolution      cnn_36/Conv2D                    1 1 cnn_35/LeakyRelu cnn_36/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_36/batch_normalization/FusedBatchNorm 1 1 cnn_36/Conv2D cnn_36/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_36/LeakyRelu                 1 1 cnn_36/batch_normalization/FusedBatchNorm cnn_36/LeakyRelu 0=0.100000
+BinaryOp         add_15                           2 1 cnn_36/LeakyRelu add_14_splitncnn_0 add_15 0=0
+Split            splitncnn_17                     1 2 add_15 add_15_splitncnn_0 add_15_splitncnn_1
+Convolution      cnn_37/Conv2D                    1 1 add_15_splitncnn_1 cnn_37/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_37/batch_normalization/FusedBatchNorm 1 1 cnn_37/Conv2D cnn_37/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_37/LeakyRelu                 1 1 cnn_37/batch_normalization/FusedBatchNorm cnn_37/LeakyRelu 0=0.100000
+Convolution      cnn_38/Conv2D                    1 1 cnn_37/LeakyRelu cnn_38/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_38/batch_normalization/FusedBatchNorm 1 1 cnn_38/Conv2D cnn_38/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_38/LeakyRelu                 1 1 cnn_38/batch_normalization/FusedBatchNorm cnn_38/LeakyRelu 0=0.100000
+BinaryOp         add_16                           2 1 cnn_38/LeakyRelu add_15_splitncnn_0 add_16 0=0
+Split            splitncnn_18                     1 2 add_16 add_16_splitncnn_0 add_16_splitncnn_1
+Convolution      cnn_39/Conv2D                    1 1 add_16_splitncnn_1 cnn_39/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_39/batch_normalization/FusedBatchNorm 1 1 cnn_39/Conv2D cnn_39/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_39/LeakyRelu                 1 1 cnn_39/batch_normalization/FusedBatchNorm cnn_39/LeakyRelu 0=0.100000
+Convolution      cnn_40/Conv2D                    1 1 cnn_39/LeakyRelu cnn_40/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_40/batch_normalization/FusedBatchNorm 1 1 cnn_40/Conv2D cnn_40/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_40/LeakyRelu                 1 1 cnn_40/batch_normalization/FusedBatchNorm cnn_40/LeakyRelu 0=0.100000
+BinaryOp         add_17                           2 1 cnn_40/LeakyRelu add_16_splitncnn_0 add_17 0=0
+Split            splitncnn_19                     1 2 add_17 add_17_splitncnn_0 add_17_splitncnn_1
+Convolution      cnn_41/Conv2D                    1 1 add_17_splitncnn_1 cnn_41/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_41/batch_normalization/FusedBatchNorm 1 1 cnn_41/Conv2D cnn_41/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_41/LeakyRelu                 1 1 cnn_41/batch_normalization/FusedBatchNorm cnn_41/LeakyRelu 0=0.100000
+Convolution      cnn_42/Conv2D                    1 1 cnn_41/LeakyRelu cnn_42/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_42/batch_normalization/FusedBatchNorm 1 1 cnn_42/Conv2D cnn_42/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_42/LeakyRelu                 1 1 cnn_42/batch_normalization/FusedBatchNorm cnn_42/LeakyRelu 0=0.100000
+BinaryOp         add_18                           2 1 cnn_42/LeakyRelu add_17_splitncnn_0 add_18 0=0
+Split            splitncnn_20                     1 2 add_18 add_18_splitncnn_0 add_18_splitncnn_1
+Padding          cnn_43/Pad                       1 1 add_18_splitncnn_1 cnn_43/Pad 0=1 1=0 2=1 3=0 4=0 5=0.000000
+Convolution      cnn_43/Conv2D                    1 1 cnn_43/Pad cnn_43/Conv2D 0=1024 1=3 11=3 2=1 12=1 3=2 13=2 4=0 5=0 6=4718592
+BatchNorm        cnn_43/batch_normalization/FusedBatchNorm 1 1 cnn_43/Conv2D cnn_43/batch_normalization/FusedBatchNorm 0=1024 1=0.001000
+ReLU             cnn_43/LeakyRelu                 1 1 cnn_43/batch_normalization/FusedBatchNorm cnn_43/LeakyRelu 0=0.100000
+Split            splitncnn_21                     1 2 cnn_43/LeakyRelu cnn_43/LeakyRelu_splitncnn_0 cnn_43/LeakyRelu_splitncnn_1
+Convolution      cnn_44/Conv2D                    1 1 cnn_43/LeakyRelu_splitncnn_1 cnn_44/Conv2D 0=512 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=524288
+BatchNorm        cnn_44/batch_normalization/FusedBatchNorm 1 1 cnn_44/Conv2D cnn_44/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_44/LeakyRelu                 1 1 cnn_44/batch_normalization/FusedBatchNorm cnn_44/LeakyRelu 0=0.100000
+Convolution      cnn_45/Conv2D                    1 1 cnn_44/LeakyRelu cnn_45/Conv2D 0=1024 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=4718592
+BatchNorm        cnn_45/batch_normalization/FusedBatchNorm 1 1 cnn_45/Conv2D cnn_45/batch_normalization/FusedBatchNorm 0=1024 1=0.001000
+ReLU             cnn_45/LeakyRelu                 1 1 cnn_45/batch_normalization/FusedBatchNorm cnn_45/LeakyRelu 0=0.100000
+BinaryOp         add_19                           2 1 cnn_45/LeakyRelu cnn_43/LeakyRelu_splitncnn_0 add_19 0=0
+Split            splitncnn_22                     1 2 add_19 add_19_splitncnn_0 add_19_splitncnn_1
+Convolution      cnn_46/Conv2D                    1 1 add_19_splitncnn_1 cnn_46/Conv2D 0=512 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=524288
+BatchNorm        cnn_46/batch_normalization/FusedBatchNorm 1 1 cnn_46/Conv2D cnn_46/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_46/LeakyRelu                 1 1 cnn_46/batch_normalization/FusedBatchNorm cnn_46/LeakyRelu 0=0.100000
+Convolution      cnn_47/Conv2D                    1 1 cnn_46/LeakyRelu cnn_47/Conv2D 0=1024 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=4718592
+BatchNorm        cnn_47/batch_normalization/FusedBatchNorm 1 1 cnn_47/Conv2D cnn_47/batch_normalization/FusedBatchNorm 0=1024 1=0.001000
+ReLU             cnn_47/LeakyRelu                 1 1 cnn_47/batch_normalization/FusedBatchNorm cnn_47/LeakyRelu 0=0.100000
+BinaryOp         add_20                           2 1 cnn_47/LeakyRelu add_19_splitncnn_0 add_20 0=0
+Split            splitncnn_23                     1 2 add_20 add_20_splitncnn_0 add_20_splitncnn_1
+Convolution      cnn_48/Conv2D                    1 1 add_20_splitncnn_1 cnn_48/Conv2D 0=512 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=524288
+BatchNorm        cnn_48/batch_normalization/FusedBatchNorm 1 1 cnn_48/Conv2D cnn_48/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_48/LeakyRelu                 1 1 cnn_48/batch_normalization/FusedBatchNorm cnn_48/LeakyRelu 0=0.100000
+Convolution      cnn_49/Conv2D                    1 1 cnn_48/LeakyRelu cnn_49/Conv2D 0=1024 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=4718592
+BatchNorm        cnn_49/batch_normalization/FusedBatchNorm 1 1 cnn_49/Conv2D cnn_49/batch_normalization/FusedBatchNorm 0=1024 1=0.001000
+ReLU             cnn_49/LeakyRelu                 1 1 cnn_49/batch_normalization/FusedBatchNorm cnn_49/LeakyRelu 0=0.100000
+BinaryOp         add_21                           2 1 cnn_49/LeakyRelu add_20_splitncnn_0 add_21 0=0
+Split            splitncnn_24                     1 2 add_21 add_21_splitncnn_0 add_21_splitncnn_1
+Convolution      cnn_50/Conv2D                    1 1 add_21_splitncnn_1 cnn_50/Conv2D 0=512 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=524288
+BatchNorm        cnn_50/batch_normalization/FusedBatchNorm 1 1 cnn_50/Conv2D cnn_50/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_50/LeakyRelu                 1 1 cnn_50/batch_normalization/FusedBatchNorm cnn_50/LeakyRelu 0=0.100000
+Convolution      cnn_51/Conv2D                    1 1 cnn_50/LeakyRelu cnn_51/Conv2D 0=1024 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=4718592
+BatchNorm        cnn_51/batch_normalization/FusedBatchNorm 1 1 cnn_51/Conv2D cnn_51/batch_normalization/FusedBatchNorm 0=1024 1=0.001000
+ReLU             cnn_51/LeakyRelu                 1 1 cnn_51/batch_normalization/FusedBatchNorm cnn_51/LeakyRelu 0=0.100000
+BinaryOp         add_22                           2 1 cnn_51/LeakyRelu add_21_splitncnn_0 add_22 0=0
+Convolution      cnn_52/Conv2D                    1 1 add_22 cnn_52/Conv2D 0=512 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=524288
+BatchNorm        cnn_52/batch_normalization/FusedBatchNorm 1 1 cnn_52/Conv2D cnn_52/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_52/LeakyRelu                 1 1 cnn_52/batch_normalization/FusedBatchNorm cnn_52/LeakyRelu 0=0.100000
+Convolution      cnn_53/Conv2D                    1 1 cnn_52/LeakyRelu cnn_53/Conv2D 0=1024 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=4718592
+BatchNorm        cnn_53/batch_normalization/FusedBatchNorm 1 1 cnn_53/Conv2D cnn_53/batch_normalization/FusedBatchNorm 0=1024 1=0.001000
+ReLU             cnn_53/LeakyRelu                 1 1 cnn_53/batch_normalization/FusedBatchNorm cnn_53/LeakyRelu 0=0.100000
+Convolution      cnn_54/Conv2D                    1 1 cnn_53/LeakyRelu cnn_54/Conv2D 0=512 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=524288
+BatchNorm        cnn_54/batch_normalization/FusedBatchNorm 1 1 cnn_54/Conv2D cnn_54/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_54/LeakyRelu                 1 1 cnn_54/batch_normalization/FusedBatchNorm cnn_54/LeakyRelu 0=0.100000
+Convolution      cnn_55/Conv2D                    1 1 cnn_54/LeakyRelu cnn_55/Conv2D 0=1024 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=4718592
+BatchNorm        cnn_55/batch_normalization/FusedBatchNorm 1 1 cnn_55/Conv2D cnn_55/batch_normalization/FusedBatchNorm 0=1024 1=0.001000
+ReLU             cnn_55/LeakyRelu                 1 1 cnn_55/batch_normalization/FusedBatchNorm cnn_55/LeakyRelu 0=0.100000
+Convolution      cnn_56/Conv2D                    1 1 cnn_55/LeakyRelu cnn_56/Conv2D 0=512 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=524288
+BatchNorm        cnn_56/batch_normalization/FusedBatchNorm 1 1 cnn_56/Conv2D cnn_56/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_56/LeakyRelu                 1 1 cnn_56/batch_normalization/FusedBatchNorm cnn_56/LeakyRelu 0=0.100000
+Split            splitncnn_25                     1 2 cnn_56/LeakyRelu cnn_56/LeakyRelu_splitncnn_0 cnn_56/LeakyRelu_splitncnn_1
+Convolution      cnn_57/Conv2D                    1 1 cnn_56/LeakyRelu_splitncnn_1 cnn_57/Conv2D 0=1024 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=4718592
+BatchNorm        cnn_57/batch_normalization/FusedBatchNorm 1 1 cnn_57/Conv2D cnn_57/batch_normalization/FusedBatchNorm 0=1024 1=0.001000
+ReLU             cnn_57/LeakyRelu                 1 1 cnn_57/batch_normalization/FusedBatchNorm cnn_57/LeakyRelu 0=0.100000
+Convolution      yolo_head1/cnn/Conv2D            1 1 cnn_57/LeakyRelu yolo_head1/cnn/Conv2D 0=255 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=261120
+MemoryData       yolo_head1/cnn/Variable_1/read   0 1 yolo_head1/cnn/Variable_1/read 0=255 1=0 2=0
+BinaryOp         yolo_head1/cnn/add               2 1 yolo_head1/cnn/Conv2D yolo_head1/cnn/Variable_1/read yolo_head1/cnn/add 0=0
+Convolution      cnn_58/Conv2D                    1 1 cnn_56/LeakyRelu_splitncnn_0 cnn_58/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_58/batch_normalization/FusedBatchNorm 1 1 cnn_58/Conv2D cnn_58/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_58/LeakyRelu                 1 1 cnn_58/batch_normalization/FusedBatchNorm cnn_58/LeakyRelu 0=0.100000
+TFResizeBilinear head_layer2/resize/ResizeBilinear 1 1 cnn_58/LeakyRelu head_layer2/resize/ResizeBilinear 0=26 1=26
+Concat           head_layer2/concat               2 1 head_layer2/resize/ResizeBilinear add_18_splitncnn_0 head_layer2/concat
+Convolution      cnn_59/Conv2D                    1 1 head_layer2/concat cnn_59/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=196608
+BatchNorm        cnn_59/batch_normalization/FusedBatchNorm 1 1 cnn_59/Conv2D cnn_59/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_59/LeakyRelu                 1 1 cnn_59/batch_normalization/FusedBatchNorm cnn_59/LeakyRelu 0=0.100000
+Convolution      cnn_60/Conv2D                    1 1 cnn_59/LeakyRelu cnn_60/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_60/batch_normalization/FusedBatchNorm 1 1 cnn_60/Conv2D cnn_60/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_60/LeakyRelu                 1 1 cnn_60/batch_normalization/FusedBatchNorm cnn_60/LeakyRelu 0=0.100000
+Convolution      cnn_61/Conv2D                    1 1 cnn_60/LeakyRelu cnn_61/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_61/batch_normalization/FusedBatchNorm 1 1 cnn_61/Conv2D cnn_61/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_61/LeakyRelu                 1 1 cnn_61/batch_normalization/FusedBatchNorm cnn_61/LeakyRelu 0=0.100000
+Convolution      cnn_62/Conv2D                    1 1 cnn_61/LeakyRelu cnn_62/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_62/batch_normalization/FusedBatchNorm 1 1 cnn_62/Conv2D cnn_62/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_62/LeakyRelu                 1 1 cnn_62/batch_normalization/FusedBatchNorm cnn_62/LeakyRelu 0=0.100000
+Convolution      cnn_63/Conv2D                    1 1 cnn_62/LeakyRelu cnn_63/Conv2D 0=256 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=131072
+BatchNorm        cnn_63/batch_normalization/FusedBatchNorm 1 1 cnn_63/Conv2D cnn_63/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_63/LeakyRelu                 1 1 cnn_63/batch_normalization/FusedBatchNorm cnn_63/LeakyRelu 0=0.100000
+Split            splitncnn_26                     1 2 cnn_63/LeakyRelu cnn_63/LeakyRelu_splitncnn_0 cnn_63/LeakyRelu_splitncnn_1
+Convolution      cnn_64/Conv2D                    1 1 cnn_63/LeakyRelu_splitncnn_1 cnn_64/Conv2D 0=512 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=1179648
+BatchNorm        cnn_64/batch_normalization/FusedBatchNorm 1 1 cnn_64/Conv2D cnn_64/batch_normalization/FusedBatchNorm 0=512 1=0.001000
+ReLU             cnn_64/LeakyRelu                 1 1 cnn_64/batch_normalization/FusedBatchNorm cnn_64/LeakyRelu 0=0.100000
+Convolution      yolo_head2/cnn/Conv2D            1 1 cnn_64/LeakyRelu yolo_head2/cnn/Conv2D 0=255 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=130560
+MemoryData       yolo_head2/cnn/Variable_1/read   0 1 yolo_head2/cnn/Variable_1/read 0=255 1=0 2=0
+BinaryOp         yolo_head2/cnn/add               2 1 yolo_head2/cnn/Conv2D yolo_head2/cnn/Variable_1/read yolo_head2/cnn/add 0=0
+Convolution      cnn_65/Conv2D                    1 1 cnn_63/LeakyRelu_splitncnn_0 cnn_65/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_65/batch_normalization/FusedBatchNorm 1 1 cnn_65/Conv2D cnn_65/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_65/LeakyRelu                 1 1 cnn_65/batch_normalization/FusedBatchNorm cnn_65/LeakyRelu 0=0.100000
+TFResizeBilinear head_layer3/resize/ResizeBilinear 1 1 cnn_65/LeakyRelu head_layer3/resize/ResizeBilinear 0=52 1=52
+Concat           head_layer3/concat               2 1 head_layer3/resize/ResizeBilinear add_10_splitncnn_0 head_layer3/concat
+Convolution      cnn_66/Conv2D                    1 1 head_layer3/concat cnn_66/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=49152
+BatchNorm        cnn_66/batch_normalization/FusedBatchNorm 1 1 cnn_66/Conv2D cnn_66/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_66/LeakyRelu                 1 1 cnn_66/batch_normalization/FusedBatchNorm cnn_66/LeakyRelu 0=0.100000
+Convolution      cnn_67/Conv2D                    1 1 cnn_66/LeakyRelu cnn_67/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_67/batch_normalization/FusedBatchNorm 1 1 cnn_67/Conv2D cnn_67/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_67/LeakyRelu                 1 1 cnn_67/batch_normalization/FusedBatchNorm cnn_67/LeakyRelu 0=0.100000
+Convolution      cnn_68/Conv2D                    1 1 cnn_67/LeakyRelu cnn_68/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_68/batch_normalization/FusedBatchNorm 1 1 cnn_68/Conv2D cnn_68/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_68/LeakyRelu                 1 1 cnn_68/batch_normalization/FusedBatchNorm cnn_68/LeakyRelu 0=0.100000
+Convolution      cnn_69/Conv2D                    1 1 cnn_68/LeakyRelu cnn_69/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_69/batch_normalization/FusedBatchNorm 1 1 cnn_69/Conv2D cnn_69/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_69/LeakyRelu                 1 1 cnn_69/batch_normalization/FusedBatchNorm cnn_69/LeakyRelu 0=0.100000
+Convolution      cnn_70/Conv2D                    1 1 cnn_69/LeakyRelu cnn_70/Conv2D 0=128 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=32768
+BatchNorm        cnn_70/batch_normalization/FusedBatchNorm 1 1 cnn_70/Conv2D cnn_70/batch_normalization/FusedBatchNorm 0=128 1=0.001000
+ReLU             cnn_70/LeakyRelu                 1 1 cnn_70/batch_normalization/FusedBatchNorm cnn_70/LeakyRelu 0=0.100000
+Convolution      cnn_71/Conv2D                    1 1 cnn_70/LeakyRelu cnn_71/Conv2D 0=256 1=3 11=3 2=1 12=1 3=1 13=1 4=-233 5=0 6=294912
+BatchNorm        cnn_71/batch_normalization/FusedBatchNorm 1 1 cnn_71/Conv2D cnn_71/batch_normalization/FusedBatchNorm 0=256 1=0.001000
+ReLU             cnn_71/LeakyRelu                 1 1 cnn_71/batch_normalization/FusedBatchNorm cnn_71/LeakyRelu 0=0.100000
+Convolution      yolo_head3/cnn/Conv2D            1 1 cnn_71/LeakyRelu yolo_head3/cnn/Conv2D 0=255 1=1 11=1 2=1 12=1 3=1 13=1 4=-233 5=0 6=65280
+MemoryData       yolo_head3/cnn/Variable_1/read   0 1 yolo_head3/cnn/Variable_1/read 0=255 1=0 2=0
+BinaryOp         yolo_head3/cnn/add               2 1 yolo_head3/cnn/Conv2D yolo_head3/cnn/Variable_1/read yolo_head3/cnn/add 0=0
