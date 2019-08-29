@@ -1,6 +1,6 @@
 Update:
 ======
-The yolov2 based on full cnn/ mobilenetv2 are checked successfully by tensorflow2ncnn. Since the model was only trained with 16 epoches, the result was not so good, as shown in follow:
+The yolov3 based on full cnn/ mobilenetv2 are checked successfully by tensorflow2ncnn. Since the model was only trained with 16 epoches, the result was not so good, as shown in follow:
 
 ![Image text](https://github.com/hanzy88/tensorflow2ncnn/blob/master/images/2eff677a1588b8bcf8382183192b44c.png)
 
@@ -11,8 +11,10 @@ code: 3hkh
 
 = =
 If it's helpful for you, please give a star. 
-= =
+-------------------------------------------
 And if you are interested in tf2ncnn, welcome to improve it together to make tf2ncnn better.
+
+#Tensorflow2ncnn
 
 ###########
 Thanks for the share of ncnn, refer to https://github.com/Tencent/ncnn
