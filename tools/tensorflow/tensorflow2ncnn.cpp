@@ -108,7 +108,6 @@ static float get_node_attr_f(const tensorflow::NodeDef& node, const char* key, f
     const google::protobuf::Map<std::string, tensorflow::AttrValue>::const_iterator it = attr.find(key);
     if (it != attr.end())
     {
-        // it->second.value_case() == 4
         //fprintf(stderr, "%f\n", it->second.f());
         def = it->second.f();
         return def;
@@ -126,8 +125,6 @@ static float get_node_attr_i(const tensorflow::NodeDef& node, const char* key, i
     //Log_han;
     if (it != attr.end())
     {
-        //Log_han;
-        // it->second.value_case() == 4
         def = it->second.i();
         return def;
         
@@ -144,8 +141,7 @@ static std::string get_node_attr_s(const tensorflow::NodeDef& node, const char* 
 
     if (it != attr.end())
     {
-        //Log_han;
-        // it->second.value_case() == 4
+        
         return it->second.s();
         
     }
@@ -161,8 +157,7 @@ static tensorflow::TensorProto get_node_attr_tensor(const tensorflow::NodeDef& n
 
     if (it != attr.end())
     {
-        //Log_han;
-        // it->second.value_case() == 4
+
         return it->second.tensor();
         
     }
