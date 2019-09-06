@@ -1,7 +1,4 @@
-
 find_package(Protobuf REQUIRED)
-set(PROTOBUF_INCLUDE_DIR /home/zyhan/anaconda3/include)
-set(PROTOBUF_LIBRARIES /home/zyhan/anaconda3/lib/libprotobuf.so)
 
 if(PROTOBUF_FOUND)
     include_directories(${PROTOBUF_INCLUDE_DIR})

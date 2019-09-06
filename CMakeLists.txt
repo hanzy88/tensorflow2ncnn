@@ -23,7 +23,7 @@ option(NCNN_OPENMP "openmp support" ON)
 option(NCNN_STDIO "load model from external file" ON)
 option(NCNN_STRING "plain and verbose string" ON)
 option(NCNN_INSTALL_SDK "Install ncnn library and headers" ON)
-option(NCNN_OPENCV "minimal opencv structure emulation" ON)
+option(NCNN_OPENCV "minimal opencv structure emulation" OFF)
 option(NCNN_BENCHMARK "print benchmark information for every layer" OFF)
 option(NCNN_PIXEL "convert and resize from/to image pixel" ON)
 option(NCNN_PIXEL_ROTATE "rotate image pixel orientation" OFF)
@@ -34,8 +34,10 @@ option(NCNN_AVX2 "optimize x86 platform with avx2" OFF)
 
 if(ANDROID OR IOS)
     option(NCNN_DISABLE_RTTI "disable rtti" ON)
+    option(NCNN_BUILD_TOOLS "build tools" OFF)
 else()
     option(NCNN_DISABLE_RTTI "disable rtti" OFF)
+    option(NCNN_BUILD_TOOLS "build tools" ON)
 endif()
 
 if(ANDROID OR IOS OR LINUX)
@@ -45,6 +47,7 @@ else()
 endif()
 
 ##############################################
+
 
 add_subdirectory(examples)
 add_subdirectory(projects)

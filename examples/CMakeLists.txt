@@ -1,14 +1,8 @@
-#set(OpenCV_PATH /home/zyhan/ncnn/3rdparty/lib)
-#find_package(OpenCV QUIET COMPONENTS 3rdparty)
-#find_package(OpenCV QUIET COMPONENTS core highgui imgproc imgcodecs)
-#if(NOT OpenCV_FOUND)
-#    #find_package(OpenCV REQUIRED COMPONENTS 3rdparty)
-#    find_package(OpenCV REQUIRED COMPONENTS core highgui imgproc)
-#endif()
-set(OpenCV_LIBS /home/zyhan/ncnn/3rdparty/lib/libopencv_core.so /home/zyhan/ncnn/3rdparty/lib/libopencv_highgui.so /home/zyhan/ncnn/3rdparty/lib/libopencv_imgproc.so /home/zyhan/ncnn/3rdparty/lib/libopencv_imgcodecs.so)
+find_package(OpenCV QUIET COMPONENTS core highgui imgproc imgcodecs)
+if(NOT OpenCV_FOUND)
+    find_package(OpenCV REQUIRED COMPONENTS core highgui imgproc)
+endif()
 
-
-include_directories(/home/zyhan/ncnn/3rdparty/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../src)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/../src)
 

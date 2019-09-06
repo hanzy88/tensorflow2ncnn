@@ -1,1 +1,0 @@
-/usr/bin/c++  -O3 -DNDEBUG   CMakeFiles/mxnet2ncnn.dir/mxnet2ncnn.cpp.o  -o mxnet2ncnn 
