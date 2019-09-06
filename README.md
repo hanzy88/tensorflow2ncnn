@@ -30,7 +30,7 @@ Since the related cmakefiles have changed to rebuilt on my machine, you can foll
 
 please check the related files in tools/tensorflow/, tensorflow2ncnn.cpp can convert the pb file to the ncnn.param and ncnn.bin. Once the tools are built, the converter can be found in myPro(i.e., the biuld files)/tools/.. For detail of the convert, you can follow the step by:
 
-https://github.com/hanzy88/ckpt2pb
+https://github.com/hanzy88/ckpt2ncnn
 
 For the new layers built in tensorflow2ncnn corresponding to the layers in ncnn:
 
