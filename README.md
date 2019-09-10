@@ -1,5 +1,15 @@
 Update:
 ======
+###Checked models:
+
+ResNet
+======
+
+Yolov3
+======
+
+to be continued.
+
 The yolov3 based on full cnn/ mobilenetv2 are checked successfully by tensorflow2ncnn, which refer to https://github.com/GuodongQi/yolo3_tensorflow.
 
 Since the model was only trained with 16 epoches AND accuracy loss after conversion, the result was not so good, as shown in follow:
@@ -47,7 +57,7 @@ Once the new layer are added, add the layer to make in src/CMakefiles, like: ncn
 
 For now, the problem caused by original bactchnorm in ncnn-tensorflow has been solved. 
 
-And layer "Shape", "StridedSlice", "Pack", "ResizeBilinear", "LeakyRelu", "Relu6", "Range", "Tile", "Reshape", "Cast" has been added or updated for tensorflow. 
+And layer "Shape", "StridedSlice", "Pack", "ResizeBilinear", "LeakyRelu", "Relu6", "Range", "Tile", "Reshape", "Cast", "Mean"(only support for global average pooling, i.e., tf.reduce_mean(layer, reduction_indices=[1,2])) has been added or updated for tensorflow. 
 
 The normal CNN with FC has tested,  tf.flatten NOT support yet because the weight file cannot be aligned correctly, but you can use reshape op with the caculated shape like tf.reshape(max_pool, [-1, 64]).
 
