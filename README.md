@@ -9,6 +9,8 @@ Yolov3
 
 to be continued.
 
+### update 20190826
+
 The yolov3 based on full cnn/ mobilenetv2 are checked successfully by tensorflow2ncnn, which refer to https://github.com/GuodongQi/yolo3_tensorflow.
 
 Since the model was only trained with 16 epoches AND accuracy loss after conversion, the result was not so good, as shown in follow:
