@@ -641,6 +641,10 @@ int main(int argc, char** argv)
         else if(node.op() == "Cast"){
             fprintf(pp, "%-16s", "Cast");
         }
+        else if(node.op() == "Mean")
+        {
+            fprintf(pp, "%-16s", "Pooling");
+        }
         else
         {
             fprintf(pp, "%-16s", node.op().c_str());
@@ -1719,6 +1723,31 @@ int main(int argc, char** argv)
             //fprintf(stderr, "%d %d\n", it_To->second.type(), it_From->second.type());
             fprintf(pp, " 0=%d", it_From->second.type());
             fprintf(pp, " 1=%d", it_To->second.type());
+        }
+        else if (node.op() == "Mean")
+        {
+            const tensorflow::TensorProto& reduction_indices = weights[node.input(1)];
+            const int * indices = reinterpret_cast<const int *>(reduction_indices.tensor_content().c_str());
+
+            int int_data_size = reduction_indices.tensor_shape().dim(0).size();
+
+            if(int_data_size != 2){
+                fprintf(stderr, "The mean op except for the global avgpooling are not support");
+                continue;
+            }
+
+            int dim_w = *indices++;
+            int dim_h = *indices;
+            if(dim_w != 1 && dim_h != 2){
+                fprintf(stderr, "The mean op except for the global avgpooling are not support");
+                continue;
+            }
+
+            int pool = 1;
+            int global_pool = 1;
+
+            fprintf(pp, " 0=%d", pool);
+            fprintf(pp, " 4=%d", global_pool);
         }
         else
         {
