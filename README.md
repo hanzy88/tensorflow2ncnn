@@ -1,12 +1,11 @@
 Update:
 ======
-###Checked models:
+### Checked models:
 
 ResNet
-======
 
 Yolov3
-======
+
 
 to be continued.
 
