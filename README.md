@@ -9,7 +9,7 @@ ResNet
 Yolov3
 
 
-to be continued.
+The defined models can be found in https://github.com/hanzy88/tfmodel4ncnn, to be continued.
 
 ### update 20190826
 
