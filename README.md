@@ -2,6 +2,8 @@ Update:
 ======
 ### Checked models:
 
+VGG16
+
 ResNet
 
 Yolov3
